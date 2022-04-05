@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/Link";
+import { useEffect } from "react";
 import Question from "../components/question";
 import { useAuth } from "../context/authContext";
 
@@ -44,7 +45,16 @@ export default function Home() {
   ];
 
   // Context
-  const { login, logout } = useAuth();
+  const { login, logout, user } = useAuth();
+
+  // Effects
+  useEffect(() => {
+    if (user) {
+      console.log("User is logged in");
+    } else {
+      console.log("User is not logged in");
+    }
+  }, [user]);
 
   return (
     <>
@@ -61,8 +71,11 @@ export default function Home() {
           <nav>
             <ul>
               <li>
-                {" "}
-                <button onClick={logout}>Login</button>
+                {user ? (
+                  <button onClick={logout}>Logout</button>
+                ) : (
+                  <button onClick={login}>Login</button>
+                )}
               </li>
             </ul>
           </nav>
