@@ -7,7 +7,7 @@ export default function Home() {
         <title>Engineering Overflow</title>
       </Head>
       <div>
-        <h1>Hello World!</h1>
+        <h1 className="text-red-100">Hello World!</h1>
       </div>
     </>
   );
