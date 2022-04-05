@@ -18,6 +18,27 @@ body {
 @tailwind utilities;
 
 :root {
-  --primary-bg: #d8e9f9;
-  --primary-text: #19524a;
+  --primary-bg: rgb(216, 233, 249);
+  --primary-bg-20: rgba(216, 233, 249, 0.2);
+  --primary-bg-40: rgba(216, 233, 249, 0.4);
+  --primary-bg-60: rgba(216, 233, 249, 0.6);
+  --primary-bg-80: rgba(216, 233, 249, 0.8);
+  --primary-bg-90: rgba(216, 233, 249, 0.9);
+  --primary-text: rgb(25, 82, 74);
+  --primary-text-20: rgba(25, 82, 74, 0.2);
+  --primary-text-40: rgba(25, 82, 74, 0.4);
+  --primary-text-60: rgba(25, 82, 74, 0.6);
+  --primary-text-80: rgba(25, 82, 74, 0.8);
+  --primary-text-90: rgba(25, 82, 74, 0.9);
+}
+
+@layer utilities {
+  .custom-border::after {
+    content: "";
+    display: block;
+    margin: auto;
+    width: 80%;
+    padding-top: 8px;
+    border-bottom: 2px solid var(--primary-text-60);
+  }
 }

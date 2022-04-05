@@ -1,7 +1,47 @@
 import Head from "next/head";
 import Link from "next/Link";
+import Question from "../components/question";
 
 export default function Home() {
+  // Constant
+  const dummyQuestions = [
+    {
+      votes: 0,
+      answers: 0,
+      views: 0,
+      question: "This is question number 1",
+      tags: ["javascript", "react", "typescript"],
+    },
+    {
+      votes: 10,
+      answers: 2,
+      views: 100,
+      question: "This is question number 2",
+      tags: ["maths", "science"],
+    },
+    {
+      votes: 20,
+      answers: 10,
+      views: 90,
+      question: "This is question number 3",
+      tags: ["engineering", "programming"],
+    },
+    {
+      votes: 0,
+      answers: 0,
+      views: 0,
+      question: "This is question number 4",
+      tags: [],
+    },
+    {
+      votes: 10,
+      answers: 2,
+      views: 50,
+      question: "This is question number 5",
+      tags: ["javascript", "react", "typescript"],
+    },
+  ];
+
   return (
     <>
       <Head>
@@ -31,38 +71,17 @@ export default function Home() {
                 <button>Ask Question</button>
               </Link>
             </div>
-            <div className="flex px-[5%]">
-              <div className="flex flex-col items-end">
-                <div className="flex space-x-2">
-                  <span>0</span>
-                  <span>votes</span>
-                </div>
-                <div className="flex space-x-2">
-                  <span>11</span>
-                  <span>answers</span>
-                </div>
-                <div className="flex space-x-2">
-                  <span>99</span>
-                  <span>views</span>
-                </div>
+            {dummyQuestions.map((question) => (
+              <div className="custom-border">
+                <Question
+                  views={question.views}
+                  answers={question.answers}
+                  votes={question.votes}
+                  question={question.question}
+                  tags={question.tags}
+                />
               </div>
-              <div className="pl-6">
-                <p className="font-semibold text-xl">
-                  How to score good marks in mathematics III
-                </p>
-                <div className="pt-2">
-                  <span className="bg-primary-text text-primary-bg p-1 mx-1 rounded opacity-85">
-                    Maths
-                  </span>
-                  <span className="bg-primary-text text-primary-bg p-1 mx-1 rounded opacity-85">
-                    Marks
-                  </span>
-                  <span className="bg-primary-text text-primary-bg p-1 mx-1 rounded opacity-85">
-                    Tag 3
-                  </span>
-                </div>
-              </div>
-            </div>
+            ))}
           </section>
         </main>
       </>

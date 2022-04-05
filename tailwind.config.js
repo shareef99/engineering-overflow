@@ -17,8 +17,22 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          bg: "var(--primary-bg)",
-          text: "var(--primary-text)",
+          bg: {
+            DEFAULT: "var(--primary-bg)",
+            20: "var(--primary-bg-20)",
+            40: "var(--primary-bg-40)",
+            60: "var(--primary-bg-60)",
+            80: "var(--primary-bg-80)",
+            90: "var(--primary-bg-90)",
+          },
+          text: {
+            DEFAULT: "var(--primary-text)",
+            20: "var(--primary-text-20)",
+            40: "var(--primary-text-40)",
+            60: "var(--primary-text-60)",
+            80: "var(--primary-text-80)",
+            90: "var(--primary-text-90)",
+          },
         },
       },
     },
