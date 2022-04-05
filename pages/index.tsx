@@ -44,7 +44,7 @@ export default function Home() {
   ];
 
   // Context
-  const { login } = useAuth();
+  const { login, logout } = useAuth();
 
   return (
     <>
@@ -62,7 +62,7 @@ export default function Home() {
             <ul>
               <li>
                 {" "}
-                <button onClick={login}>Login</button>
+                <button onClick={logout}>Login</button>
               </li>
             </ul>
           </nav>
