@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode, Children } from "react";
+import { createContext, useContext, ReactNode } from "react";
 
 interface authContextType {
   login: () => void;
