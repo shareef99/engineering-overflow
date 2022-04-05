@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/Link";
 import Question from "../components/question";
+import { useAuth } from "../context/authContext";
 
 export default function Home() {
   // Constant
@@ -42,6 +43,9 @@ export default function Home() {
     },
   ];
 
+  // Context
+  const { login } = useAuth();
+
   return (
     <>
       <Head>
@@ -58,7 +62,7 @@ export default function Home() {
             <ul>
               <li>
                 {" "}
-                <Link href="/login">Login</Link>
+                <button onClick={login}>Login</button>
               </li>
             </ul>
           </nav>
