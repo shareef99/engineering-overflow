@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/Link";
-import { useEffect } from "react";
 import Question from "../components/question";
 import { useAuth } from "../context/authContext";
 
@@ -47,15 +46,6 @@ export default function Home() {
   // Context
   const { login, logout, user } = useAuth();
 
-  // Effects
-  useEffect(() => {
-    if (user) {
-      console.log("User is logged in");
-    } else {
-      console.log("User is not logged in");
-    }
-  }, [user]);
-
   return (
     <>
       <Head>
@@ -84,12 +74,18 @@ export default function Home() {
           <section>
             <div className="flex justify-between my-8">
               <h2 className="text-xl">Top Questions</h2>
-              <Link href="/askQuestion" as="ask-question">
-                <button>Ask Question</button>
-              </Link>
+              {user ? (
+                <Link href="/askQuestion" as="ask-question">
+                  <button>Ask Question</button>
+                </Link>
+              ) : (
+                <button onClick={() => console.log("Login to ask question")}>
+                  Ask Question
+                </button>
+              )}
             </div>
-            {dummyQuestions.map((question) => (
-              <div className="custom-border">
+            {dummyQuestions.map((question, index) => (
+              <div className="custom-border" key={index}>
                 <Question
                   views={question.views}
                   answers={question.answers}

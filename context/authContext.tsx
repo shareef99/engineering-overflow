@@ -6,7 +6,8 @@ import {
   useState,
 } from "react";
 import { GoogleAuthProvider, signInWithPopup, signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../firebase";
 
 interface authContextType {
   login: () => void;
@@ -31,8 +32,12 @@ interface Props {
 }
 
 interface User {
-  email: string;
   name: string;
+  email: string;
+  photoURL: string;
+  uid: string;
+  creationTime: string;
+  lastSignInTime: string;
 }
 
 export function AuthProvider({ children }: Props) {
@@ -42,33 +47,34 @@ export function AuthProvider({ children }: Props) {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        console.log(credential, token, user);
+        const { user } = result;
+        const { displayName, email, photoURL, uid, metadata } = user;
+        const { creationTime, lastSignInTime } = metadata;
+        const userRef = doc(db, "users", email);
+        const currentUser = {
+          name: displayName,
+          email,
+          photoURL,
+          uid,
+          creationTime,
+          lastSignInTime,
+        };
+        setDoc(userRef, currentUser).then(() => {
+          setCurrentUser(currentUser);
+        });
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        console.log(errorCode, errorMessage, email, credential);
+        alert("failed to login\nTry again later");
       });
   };
 
   const logout = () => {
-    signOut(auth)
-      .then(() => {
-        console.log("logged out");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    signOut(auth).catch((error) => {
+      console.log(error);
+    });
   };
 
   useEffect(() => {
@@ -77,14 +83,16 @@ export function AuthProvider({ children }: Props) {
         setCurrentUser(undefined);
         return;
       }
-      const { email } = user;
-      // const userRef = doc(db, "uploaders", email);
-      // const res = await getDoc(userRef);
-      // setCurrentUser({
-      //   email: res.data().email,
-      //   name: res.data().name,
-      // });
-      setCurrentUser({ email, name: "Nadeem Shareef" });
+      const { email, displayName, photoURL, uid, metadata } = user;
+      const { creationTime, lastSignInTime } = metadata;
+      setCurrentUser({
+        name: displayName,
+        email,
+        photoURL,
+        uid,
+        creationTime,
+        lastSignInTime,
+      });
     });
 
     return unsubscribe;
