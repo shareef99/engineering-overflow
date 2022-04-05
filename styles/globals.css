@@ -32,6 +32,12 @@ body {
   --primary-text-90: rgba(25, 82, 74, 0.9);
 }
 
+@layer base {
+  h2 {
+    @apply text-xl;
+  }
+}
+
 @layer utilities {
   .custom-border::after {
     content: "";

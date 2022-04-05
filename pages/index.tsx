@@ -44,7 +44,7 @@ export default function Home() {
   ];
 
   // Context
-  const { login, logout, user } = useAuth();
+  const { user } = useAuth();
 
   return (
     <>
@@ -53,7 +53,7 @@ export default function Home() {
       </Head>
       <section>
         <div className="flex justify-between my-8">
-          <h2 className="text-xl">Top Questions</h2>
+          <h2>Top Questions</h2>
           {user ? (
             <Link href="/ask-question">
               <button>Ask Question</button>
