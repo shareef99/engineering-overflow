@@ -8,7 +8,7 @@ interface Props {
 
 const Question = ({ answers, views, votes, question, tags }: Props) => {
   return (
-    <div className="flex px-[5%] my-4">
+    <div className="flex px-[5%] my-4" key={question}>
       <div className="flex flex-col items-end">
         <div className="flex space-x-2">
           <span>{votes}</span>
